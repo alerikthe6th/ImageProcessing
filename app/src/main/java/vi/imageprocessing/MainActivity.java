@@ -18,6 +18,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
+import java.awt.*;
+
 /**
  * GOALS:
  *
@@ -82,7 +84,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static Bitmap findColor(Bitmap src) {
+    public void findColor(Bitmap src) {
+
+        /**
+         * TODO:
+         *
+         * 1) divide picture region into three areas: left, right, center
+         *
+         * 2) center region will probably be about 20 pixels wide, but the full heigbt of the image
+         *
+         * 3) iterate through row column to find a pixel that matches our goal color
+         *
+         * 4) setup what we want to find as a goal color
+         *
+         */
+
+
         // image size
         int width = src.getWidth();
         int height = src.getHeight();
@@ -92,36 +109,43 @@ public class MainActivity extends AppCompatActivity {
         int A, R, G, B;
         int pixel;
 
-        // scan through all pixels
+        int leftBoundCenter = width/2 - 10;  // left bound for the center region
+        int rightBoundCenter = width/2 + 10; // right bound for the center region
+
+
+        //target color
+        //int targetA = 255; // i dont think we care about the transparency since image is coming from a camera
+        int targetR = 150;
+        int targetG = 50;
+        int targetB = 50;
+
+        // scan through middle column of pixels
         for(int x = 0; x < width; ++x) {
             for(int y = 0; y < height; ++y) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
-                A = Color.alpha(pixel);
+                //A = Color.alpha(pixel);
                 R = Color.red(pixel);
                 G = Color.green(pixel);
                 B = Color.blue(pixel);
 
-                // increase/decrease each channel
-                //R += value;
-                if(R > 255) { R = 255; }
-                else if(R < 0) { R = 0; }
+                //if the detected red value is more red or at least 90% as red as our target red
+                if(R >= targetB || R < targetR*.9) {
+                    //red detected?
+                }
+                //if the detected green value is more red or at least 90% as green as our target green
+                if(G >= targetG || G < targetG*.9) {
+                    //red detected?
+                }
+                //if the detected blue value is more blue or at least 90% as red as our target blue
+                if(B >= targetB || B < targetB*.9) {
+                    //red detected?
+                }
 
-                //G += value;
-                if(G > 255) { G = 255; }
-                else if(G < 0) { G = 0; }
 
-                //B += value;
-                if(B > 255) { B = 255; }
-                else if(B < 0) { B = 0; }
-
-                // apply new pixel color to output bitmap
-                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
             }
         }
 
-        // return final image
-        return bmOut;
     }
 
     /**
