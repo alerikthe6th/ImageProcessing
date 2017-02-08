@@ -18,7 +18,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
-import java.awt.*;
 
 /**
  * GOALS:
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 B = Color.blue(pixel);
 
                 //if the detected red value is more red or at least 90% as red as our target red
-                if(R >= targetB || R < targetR*.9) {
+                if(R >= targetR || R < targetR*.9) {
                     //red detected?
                 }
                 //if the detected green value is more red or at least 90% as green as our target green
