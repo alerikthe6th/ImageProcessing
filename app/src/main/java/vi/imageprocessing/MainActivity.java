@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public void findColor(Bitmap src) {
 
         /**
-         * 
+         *
          *
          * 1) divide picture region into three areas: left, right, center
          *
