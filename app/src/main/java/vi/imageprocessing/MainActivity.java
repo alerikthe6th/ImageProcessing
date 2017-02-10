@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         int width = image.getWidth();
         int height = image.getHeight();
         // create output bitmap
-        //Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
+        Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
         // color information
         int A, R, G, B;
         int pixel;
@@ -137,11 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 temp.setBlue(Color.blue(pixel));
 
                 if(temp.compareColor(red)) {
-                    try{
-                        image.setPixel(x, y, Color.RED);
-                    } catch(Exception e){
-                        e.printStackTrace();
-                    }
+                    bmOut.setPixel(x, y, Color.RED);
+                } else {
+                    bmOut.setPixel(x, y, pixel);
                 }
             }
         }
@@ -209,12 +207,7 @@ public class MainActivity extends AppCompatActivity {
 */
         //Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
         Log.d("values", "number of pixels found: " + frequency);
-        try{
-            Bitmap newImage = Bitmap.createBitmap(image);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return image;
+        return bmOut;
     }
 
     /**
