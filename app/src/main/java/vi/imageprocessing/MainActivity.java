@@ -137,7 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 temp.setBlue(Color.blue(pixel));
 
                 if(temp.compareColor(red)) {
-                    image.setPixel(x, y, Color.RED);
+                    try{
+                        image.setPixel(x, y, Color.RED);
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }
