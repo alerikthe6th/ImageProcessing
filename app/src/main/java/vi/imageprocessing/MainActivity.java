@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-        Bitmap newImage = findColor(img);
-        imgView.setImageBitmap(newImage);
+        imgView.setImageBitmap(findColor(img));
 //        Bitmap newBMP = doBrightness(img, 90);
 //        imgView.setImageBitmap(newBMP);
     }
