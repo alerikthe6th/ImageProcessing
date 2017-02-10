@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void doStuff(View view) {
 
-        findColor(img);
+        findColor();
 
 //        Bitmap newBMP = doBrightness(img, 90);
 //        imgView.setImageBitmap(newBMP);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void findColor(Bitmap src) {
+    public void findColor() {
 
         /**
          *
@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         // image size
-        int width = src.getWidth();
-        int height = src.getHeight();
+        int width = img.getWidth();
+        int height = img.getHeight();
         // create output bitmap
-        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
+        Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
         // color information
         int A, R, G, B;
         int pixel;
@@ -129,10 +129,10 @@ public class MainActivity extends AppCompatActivity {
         Color2 temp = new Color2();
 
         // start the scan through the first region
-        for(int x = 0; x < img.getWidth(); x++) {
-            for(int y = 0; y < height; y++) {
+        for(int y = 0; y < img.getHeight(); y++) {
+            for(int x = 0; x < img.getWidth(); x++) {
                 // get pixel color
-                pixel = src.getPixel(x, y);
+                pixel = img.getPixel(x, y);
                 //ipdate temp color to be color of current pixel
                 temp.setRed(Color.red(pixel));
                 temp.setGreen(Color.green(pixel));
