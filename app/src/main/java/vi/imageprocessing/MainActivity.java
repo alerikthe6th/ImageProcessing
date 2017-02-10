@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgView;
     private Bitmap img;
     private TextView tvColorDet;
+    private TargetColor red;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     @Override
@@ -108,15 +109,14 @@ public class MainActivity extends AppCompatActivity {
         int A, R, G, B;
         int pixel;
 
-        int leftBoundCenter = width/2 - 10;  // left bound for the center region
-        int rightBoundCenter = width/2 + 10; // right bound for the center region
+        int reg1 = 0;
+        int reg2 = width/5;
+        int reg3 = 2*width/5;
+        int reg4 = 3*width/5;
+        int reg5 = 4*width/5;
 
+        red = new TargetColor(150,50,50);
 
-        //target color
-        //int targetA = 255; // i dont think we care about the transparency since image is coming from a camera
-        int targetR = 150;
-        int targetG = 50;
-        int targetB = 50;
 
         // scan through middle column of pixels
         for(int x = 0; x < width; ++x) {
@@ -127,20 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 R = Color.red(pixel);
                 G = Color.green(pixel);
                 B = Color.blue(pixel);
-
-                //if the detected red value is more red or at least 90% as red as our target red
-                if(R >= targetR || R < targetR*.9) {
-                    //red detected?
-                }
-                //if the detected green value is more red or at least 90% as green as our target green
-                if(G >= targetG || G < targetG*.9) {
-                    //red detected?
-                }
-                //if the detected blue value is more blue or at least 90% as red as our target blue
-                if(B >= targetB || B < targetB*.9) {
-                    //red detected?
-                }
-
 
             }
         }
