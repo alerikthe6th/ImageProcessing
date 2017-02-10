@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgView;
     private Bitmap img;
     private TextView tvColorDet;
-    private TargetColor red;
+    private Color2 red;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     @Override
@@ -114,42 +114,39 @@ public class MainActivity extends AppCompatActivity {
         int pixel;
 
         //divide the picture into 5 regions
-        int reg1 = 0;
-        int reg2 = width/5;
-        int reg3 = 2*width/5; //mid region
-        int reg4 = 3*width/5;
-        int reg5 = 4*width/5;
+        int reg_size = width/5;
 
         //track the number of occurences of the target color
-        int reg1Freq = 0;
+        /*int reg1Freq = 0;
         int reg2Freq = 0;
         int reg3Freq = 0;
         int reg4Freq = 0;
-        int reg5Freq = 0;
+        int reg5Freq = 0;*/
+        int frequency = 0;
 
         //set a lower target color threshold to find
-        red = new TargetColor(125,50,50);
-
+        red = new Color2(125,50,50);
+        Color2 temp = new Color2();
 
         // start the scan through the first region
-        for(int x = reg1; x < reg2; ++x) {
-            for(int y = 0; y < height; ++y) {
+        for(int x = 0; x < img.getWidth(); x++) {
+            for(int y = 0; y < height; y++) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
-                //A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
+                //ipdate temp color to be color of current pixel
+                temp.setRed(Color.red(pixel));
+                temp.setGreen(Color.green(pixel));
+                temp.setBlue(Color.blue(pixel));
 
-                if(R >= red.getRed() && G <= red.getGreen() && B <= red.getBlue()) {
-                    reg1Freq++;
+                if(temp.compareColor(red)) {
+                    frequency++;
                 }
             }
         }
 
-        // start the scan through the second region
-        for(int x = reg2; x < reg3; ++x) {
-            for(int y = 0; y < height; ++y) {
+        /*// start the scan through the second region
+        for(int x = reg2; x < reg3; x++) {
+            for(int y = 0; y < height; y++) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
                 //A = Color.alpha(pixel);
@@ -207,9 +204,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-        Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
-
+*/
+        //Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
+        Log.d("values", "number of pixels found: " + frequency);
     }
 
     /**
