@@ -2,6 +2,7 @@ package vi.imageprocessing;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * Created by timothyhamby13 on 2/9/2017.
@@ -20,10 +21,12 @@ public class SearchThread implements Runnable {
         this.startX = startX;
         this.stopX = stopX;
         this.target = target;
+        Log.d("SearchThread", "Thread created");
     }
     @Override
     public void run() {
         try{
+            Log.d("SearchThreadRun", "starting search");
             findColor(img, startX, stopX);
             System.out.println("This thread found " + frequency + " pixels matching target");
         }catch (Exception e){

@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
         B = Color.blue(pixel);
 
         tvColorDet.setText("A: " + A + " R: " + R + " G: " + G + " B: " + B);
-
     }
-
 
     /**
      * doBrightness increases the "brightess" of a bmp based on a passed in value
