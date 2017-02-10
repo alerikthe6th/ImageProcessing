@@ -15,10 +15,12 @@ public class SearchThread implements Runnable {
     private int stopX;
     private Color2 target;
     private int threadNum;
+    private MainActivity mainActivity;
 
-    public SearchThread(Bitmap img, Color2 target){
+    public SearchThread(Bitmap img, Color2 target, MainActivity mainActivity){
         this.img = img;
         this.target = target;
+        this.mainActivity = mainActivity;
     }
     @Override
     public void run() {
@@ -35,6 +37,15 @@ public class SearchThread implements Runnable {
                 }
             }
             System.out.println("region " + index);
+
+            final int region = index;
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mainActivity.afterSearchFinished(region);
+                }
+            });
+
         }catch (Exception e){
             e.printStackTrace();
         }

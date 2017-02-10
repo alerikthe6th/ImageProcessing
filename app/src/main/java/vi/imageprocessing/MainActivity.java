@@ -50,8 +50,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-        SearchThread t1 = new SearchThread(img, target);
+        SearchThread t1 = new SearchThread(img, target, this);
         new Thread(t1).start();
+    }
+
+    /**
+     *
+     * param region - 0 means left, 1 means ??
+     */
+    public void afterSearchFinished(int region) {
+        tvColorDet.setText("Region: " + region);
+
     }
 
     public void doMoreStuff(View view) {
