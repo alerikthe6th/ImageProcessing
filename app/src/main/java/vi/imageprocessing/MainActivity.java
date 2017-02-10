@@ -33,7 +33,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int COLS = 5;
+    public static final int COLS = 1;
     private ImageView imgView;
     private Bitmap img;
     private TextView tvColorDet;
@@ -44,33 +44,13 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // load image view control
         imgView =(ImageView)findViewById(R.id.imgView);
         tvColorDet = (TextView) findViewById(R.id.tvColorDet);
-
     }
 
     public void doStuff(View view) {
-        SearchThread[] array = new SearchThread[COLS];
-        int column = img.getWidth()/COLS;
-        int maxFreq = -1;
-        int index = -1;
-        for(int i=0; i < COLS; i++){
-            SearchThread st = new SearchThread(img, i*column, (i+1)*column, target, i);
-            Thread thread = new Thread(st);
-            array[i] = st;
-            thread.start();
-        }
-        int temp;
-        for(int j = 0; j < COLS; j++){
-            temp = array[j].getFrequency();
-            if(temp > maxFreq){
-                maxFreq = temp;
-                index = j;
-            }
-        }
-        System.out.println("Thread " + index + " contained the most matches: " + maxFreq);
+
     }
 
     public void doMoreStuff(View view) {

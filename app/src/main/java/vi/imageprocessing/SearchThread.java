@@ -9,35 +9,41 @@ import android.util.Log;
  */
 
 public class SearchThread implements Runnable {
+    public static final int COLS = 5;
     private Bitmap img;
     private int startX;
     private int stopX;
     private Color2 target;
-    private int frequency = 0;
     private int threadNum;
-
-
-    public SearchThread(Bitmap img, int startX, int stopX, Color2 target, int threadNum){
+    
+    public SearchThread(Bitmap img, Color2 target){
         this.img = img;
-        this.startX = startX;
-        this.stopX = stopX;
         this.target = target;
-        this.threadNum = threadNum;
     }
     @Override
     public void run() {
         try{
-            findColor(img, startX, stopX);
-            System.out.println("This thread found " + frequency + " pixels matching target. startX = " + startX + " stopX = " + stopX);
+            int colWidth = img.getWidth()/COLS;
+            int maxFreq = -1;
+            int index = -1;
+            int temp;
+            for(int i = 0; i < COLS; i++){
+                temp = findColor(img, i*colWidth, (i+1)*colWidth);
+                if(temp > maxFreq){
+                    maxFreq = temp;
+                    index = i;
+                }
+            }
+            System.out.println("region " + index);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void findColor(Bitmap image, int startX, int stopX) {
+    public int findColor(Bitmap image, int startX, int stopX) {
         // image size
         int height = image.getHeight();
-        int pixel;
+        int pixel, frequency = 0;
 
         Color2 temp = new Color2();
 
@@ -56,9 +62,7 @@ public class SearchThread implements Runnable {
                 }
             }
         }
-    }
-
-    public int getFrequency(){
         return frequency;
     }
+
 }
