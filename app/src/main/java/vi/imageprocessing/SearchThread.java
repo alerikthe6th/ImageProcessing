@@ -21,14 +21,12 @@ public class SearchThread implements Runnable {
         this.startX = startX;
         this.stopX = stopX;
         this.target = target;
-        Log.d("SearchThread", "Thread created");
     }
     @Override
     public void run() {
         try{
-            Log.d("SearchThreadRun", "starting search");
             findColor(img, startX, stopX);
-            System.out.println("This thread found " + frequency + " pixels matching target");
+            System.out.println("This thread found " + frequency + " pixels matching target. startX = " + startX + " stopX = " + stopX);
         }catch (Exception e){
             e.printStackTrace();
         }

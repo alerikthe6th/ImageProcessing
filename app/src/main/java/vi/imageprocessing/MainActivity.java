@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void doStuff(View view) {
         int column = img.getWidth()/COLS;
-        for(int i=0; i <= COLS; i++){
+        for(int i=0; i < COLS; i++){
             SearchThread st = new SearchThread(img, i*column, (i+1)*column, target);
             Thread thread = new Thread(st);
             thread.start();
