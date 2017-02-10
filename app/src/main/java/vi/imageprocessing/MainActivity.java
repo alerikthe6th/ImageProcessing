@@ -205,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
 */
         //Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
         Log.d("values", "number of pixels found: " + frequency);
+        try{
+            Bitmap newImage = Bitmap.createBitmap(image);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return image;
     }
 
