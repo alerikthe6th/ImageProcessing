@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-        imgView.setImageBitmap(findColor(img));
+        //imgView.setImageBitmap(findColor(img));       //update this call to new params
 //        Bitmap newBMP = doBrightness(img, 90);
 //        imgView.setImageBitmap(newBMP);
     }
@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         // color information
         int A, R, G, B;
         int pixel;
-
-
         pixel = src.getPixel(width/2, height/2);
         A = Color.alpha(pixel);
         R = Color.red(pixel);
@@ -86,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public Bitmap findColor(Bitmap image) {
+    public Bitmap findColor(Bitmap image, int startX, int stopX) { //add color as param to recolor found pixels
+                                                                    //make for loops go from startx to stopx
 
         /**
          *
@@ -107,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
         int height = image.getHeight();
         // create output bitmap
         Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
-        // color information
-        int A, R, G, B;
         int pixel;
 
         //divide the picture into 5 regions
@@ -137,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 temp.setBlue(Color.blue(pixel));
 
                 if(temp.compareColor(red)) {
-                    bmOut.setPixel(x, y, Color.RED);
+                    bmOut.setPixel(x, y, Color.RED);  //change this to recolor with color from param.
                 } else {
                     bmOut.setPixel(x, y, pixel);
                 }
