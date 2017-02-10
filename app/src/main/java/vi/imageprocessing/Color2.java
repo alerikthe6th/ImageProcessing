@@ -57,17 +57,17 @@ public class Color2 {
         int otherGreen = other.getGreen();
         int otherBlue = other.getBlue();
 
-        if(this.getRed() == otherRed || this.getRed() <= otherRed + ERROR_MARGIN || this.getRed() >= otherRed - ERROR_MARGIN){
+        if(this.getRed() - otherRed >= 0 && this.getRed() - otherRed < ERROR_MARGIN){
             redCheck = true;
         } else {
             return false;
         }
-        if(this.getGreen() == otherGreen || this.getGreen() <= otherGreen + ERROR_MARGIN || this.getGreen() >= otherGreen - ERROR_MARGIN){
+        if(this.getGreen() - otherGreen >= 0 && this.getGreen() - otherGreen < ERROR_MARGIN){
             greenCheck = true;
         } else {
             return false;
         }
-        if(this.getBlue() == otherBlue || this.getBlue() <= otherBlue + ERROR_MARGIN || this.getBlue() >= otherBlue - ERROR_MARGIN){
+        if(this.getBlue() - otherBlue >= 0 && this.getBlue() - otherBlue < ERROR_MARGIN){
             blueCheck = true;
         } else {
             return false;
