@@ -74,5 +74,4 @@ public class Color2 {
         }
         return (redCheck && greenCheck && blueCheck);
     }
-
 }

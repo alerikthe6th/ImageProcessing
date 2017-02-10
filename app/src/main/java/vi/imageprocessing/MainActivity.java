@@ -33,11 +33,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static final int COLS = 5;
     private ImageView imgView;
     private Bitmap img;
     private TextView tvColorDet;
-    private Color2 red;
+    private Color2 target = new Color2(150, 50, 50); //color red
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     @Override
@@ -52,13 +52,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-        //imgView.setImageBitmap(findColor(img));       //update this call to new params
-//        Bitmap newBMP = doBrightness(img, 90);
-//        imgView.setImageBitmap(newBMP);
+        int column = img.getWidth()/COLS;
+        for(int i=0; i <= COLS; i++){
+            SearchThread st = new SearchThread(img, i*column, (i+1)*column, target);
+            Thread thread = new Thread(st);
+            thread.start();
+        }
     }
 
     public void doMoreStuff(View view) {
-
         getPixelData(img);
     }
 
@@ -82,130 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-    public Bitmap findColor(Bitmap image, int startX, int stopX) { //add color as param to recolor found pixels
-                                                                    //make for loops go from startx to stopx
-
-        /**
-         *
-         *
-         * 1) divide picture region into three areas: left, right, center
-         *
-         * 2) center region will probably be about 20 pixels wide, but the full heigbt of the image
-         *
-         * 3) iterate through row column to find a pixel that matches our goal color
-         *
-         * 4) setup what we want to find as a goal color
-         *
-         */
-
-
-        // image size
-        int width = image.getWidth();
-        int height = image.getHeight();
-        // create output bitmap
-        Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
-        int pixel;
-
-        //divide the picture into 5 regions
-        int reg_size = width/5;
-
-        //track the number of occurences of the target color
-        /*int reg1Freq = 0;
-        int reg2Freq = 0;
-        int reg3Freq = 0;
-        int reg4Freq = 0;
-        int reg5Freq = 0;*/
-        int frequency = 0;
-
-        //set a lower target color threshold to find
-        red = new Color2(125,50,50);
-        Color2 temp = new Color2();
-
-        // start the scan through the first region
-        for(int y = 0; y < height; y++) {
-            for(int x = 0; x < width; x++) {
-                // get pixel color
-                pixel = image.getPixel(x, y);
-                //ipdate temp color to be color of current pixel
-                temp.setRed(Color.red(pixel));
-                temp.setGreen(Color.green(pixel));
-                temp.setBlue(Color.blue(pixel));
-
-                if(temp.compareColor(red)) {
-                    bmOut.setPixel(x, y, Color.RED);  //change this to recolor with color from param.
-                } else {
-                    bmOut.setPixel(x, y, pixel);
-                }
-            }
-        }
-
-        /*// start the scan through the second region
-        for(int x = reg2; x < reg3; x++) {
-            for(int y = 0; y < height; y++) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                //A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                if(R >= red.getRed() && G <= red.getGreen() && B <= red.getBlue()) {
-                    reg2Freq++;
-                }
-            }
-        }
-        // start the scan through the third region
-        for(int x = reg3; x < reg4; ++x) {
-            for(int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                //A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                if(R >= red.getRed() && G <= red.getGreen() && B <= red.getBlue()) {
-                    reg3Freq++;
-                }
-            }
-        }
-        // start the scan through the fourth region
-        for(int x = reg4; x < reg5; ++x) {
-            for(int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                //A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                if(R >= red.getRed() && G <= red.getGreen() && B <= red.getBlue()) {
-                    reg4Freq++;
-                }
-            }
-        }
-        // start the scan through the fifth region
-        for(int x = reg5; x < width; ++x) {
-            for(int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                //A = Color.alpha(pixel);
-                R = Color.red(pixel);
-                G = Color.green(pixel);
-                B = Color.blue(pixel);
-
-                if(R >= red.getRed() && G <= red.getGreen() && B <= red.getBlue()) {
-                    reg5Freq++;
-                }
-            }
-        }
-*/
-        //Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
-        Log.d("values", "number of pixels found: " + frequency);
-        return bmOut;
-    }
 
     /**
      * doBrightness increases the "brightess" of a bmp based on a passed in value
