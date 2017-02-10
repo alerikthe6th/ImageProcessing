@@ -15,7 +15,7 @@ public class SearchThread implements Runnable {
     private int stopX;
     private Color2 target;
     private int threadNum;
-    
+
     public SearchThread(Bitmap img, Color2 target){
         this.img = img;
         this.target = target;

@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-
+        SearchThread t1 = new SearchThread(img, target);
+        new Thread(t1).start();
     }
 
     public void doMoreStuff(View view) {
