@@ -52,9 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
-
-        findColor();
-
+        Bitmap newImage = findColor(img);
+        imgView.setImageBitmap(newImage);
 //        Bitmap newBMP = doBrightness(img, 90);
 //        imgView.setImageBitmap(newBMP);
     }
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void findColor() {
+    public Bitmap findColor(Bitmap image) {
 
         /**
          *
@@ -105,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         // image size
-        int width = img.getWidth();
-        int height = img.getHeight();
+        int width = image.getWidth();
+        int height = image.getHeight();
         // create output bitmap
-        Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
+        //Bitmap bmOut = Bitmap.createBitmap(width, height, img.getConfig());
         // color information
         int A, R, G, B;
         int pixel;
@@ -129,17 +128,17 @@ public class MainActivity extends AppCompatActivity {
         Color2 temp = new Color2();
 
         // start the scan through the first region
-        for(int y = 0; y < img.getHeight(); y++) {
-            for(int x = 0; x < img.getWidth(); x++) {
+        for(int y = 0; y < height; y++) {
+            for(int x = 0; x < width; x++) {
                 // get pixel color
-                pixel = img.getPixel(x, y);
+                pixel = image.getPixel(x, y);
                 //ipdate temp color to be color of current pixel
                 temp.setRed(Color.red(pixel));
                 temp.setGreen(Color.green(pixel));
                 temp.setBlue(Color.blue(pixel));
 
                 if(temp.compareColor(red)) {
-                    frequency++;
+                    image.setPixel(x, y, Color.RED);
                 }
             }
         }
@@ -207,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 */
         //Log.d("values", "reg1 freq: " + reg1Freq + ", reg2 freq: " + reg2Freq + ", reg3 freq " + reg3Freq + ", reg4 freq: " + reg4Freq + ", reg5 freq: " + reg5Freq);
         Log.d("values", "number of pixels found: " + frequency);
+        return image;
     }
 
     /**
