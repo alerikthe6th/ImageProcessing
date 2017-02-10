@@ -52,12 +52,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doStuff(View view) {
+        SearchThread[] array = new SearchThread[COLS];
         int column = img.getWidth()/COLS;
+        int maxFreq = -1;
+        int index = -1;
         for(int i=0; i < COLS; i++){
-            SearchThread st = new SearchThread(img, i*column, (i+1)*column, target);
+            SearchThread st = new SearchThread(img, i*column, (i+1)*column, target, i);
             Thread thread = new Thread(st);
+            array[i] = st;
             thread.start();
         }
+        int temp;
+        for(int j = 0; j < COLS; j++){
+            temp = array[j].getFrequency();
+            if(temp > maxFreq){
+                maxFreq = temp;
+                index = j;
+            }
+        }
+        System.out.println("Thread " + index + " contained the most matches: " + maxFreq);
     }
 
     public void doMoreStuff(View view) {

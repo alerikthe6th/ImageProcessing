@@ -14,13 +14,15 @@ public class SearchThread implements Runnable {
     private int stopX;
     private Color2 target;
     private int frequency = 0;
+    private int threadNum;
 
 
-    public SearchThread(Bitmap img, int startX, int stopX, Color2 target){
+    public SearchThread(Bitmap img, int startX, int stopX, Color2 target, int threadNum){
         this.img = img;
         this.startX = startX;
         this.stopX = stopX;
         this.target = target;
+        this.threadNum = threadNum;
     }
     @Override
     public void run() {
@@ -33,7 +35,6 @@ public class SearchThread implements Runnable {
     }
 
     public void findColor(Bitmap image, int startX, int stopX) {
-
         // image size
         int height = image.getHeight();
         int pixel;
@@ -55,5 +56,9 @@ public class SearchThread implements Runnable {
                 }
             }
         }
+    }
+
+    public int getFrequency(){
+        return frequency;
     }
 }
