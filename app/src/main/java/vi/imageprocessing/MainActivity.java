@@ -33,11 +33,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int COLS = 1;
     private ImageView imgView;
     private Bitmap img;
     private TextView tvColorDet;
     private Color2 target = new Color2(150, 50, 50); //color red
+
+
+
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     @Override
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public void doStuff(View view) {
         SearchThread t1 = new SearchThread(img, target, this);
         new Thread(t1).start();
+
     }
 
     /**
@@ -59,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
      * param region - 0 means left, 1 means ??
      */
     public void afterSearchFinished(int region) {
-        tvColorDet.setText("Region: " + region);
+        System.out.println("The region with most matches is " + region);
 
     }
+
 
     public void doMoreStuff(View view) {
         getPixelData(img);
@@ -82,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         R = Color.red(pixel);
         G = Color.green(pixel);
         B = Color.blue(pixel);
-
         tvColorDet.setText("A: " + A + " R: " + R + " G: " + G + " B: " + B);
     }
 

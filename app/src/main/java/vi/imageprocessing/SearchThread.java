@@ -9,13 +9,14 @@ import android.util.Log;
  */
 
 public class SearchThread implements Runnable {
+
     public static final int COLS = 5;
     private Bitmap img;
-    private int startX;
-    private int stopX;
     private Color2 target;
-    private int threadNum;
     private MainActivity mainActivity;
+    private int region = -1;
+    private int pixelMatches = -1;
+    private int increment = 0;
 
     public SearchThread(Bitmap img, Color2 target, MainActivity mainActivity){
         this.img = img;
@@ -36,7 +37,6 @@ public class SearchThread implements Runnable {
                     index = i;
                 }
             }
-            System.out.println("region " + index);
 
             final int region = index;
             mainActivity.runOnUiThread(new Runnable() {
@@ -45,7 +45,6 @@ public class SearchThread implements Runnable {
                     mainActivity.afterSearchFinished(region);
                 }
             });
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -74,6 +73,12 @@ public class SearchThread implements Runnable {
             }
         }
         return frequency;
+    }
+
+    private void resetSearchFields() {
+        region = -1;
+        pixelMatches = -1;
+        increment = 0;
     }
 
 }
